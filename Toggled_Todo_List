@@ -22,7 +22,7 @@ function TodoList() {
   
   function handleChange(id) {
     setList(
-        List.map(list => {
+        List.map(list,id => {
             if(list.id === id) {
                 list={...list, completed: true};        
             }
