@@ -6,49 +6,54 @@ const App = () => {
 
 
 
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 function TodoList() {
-  const [List, setList] = useState[]
-  
+  const [List, setList] = useState([]);
+
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/todos')
-      .then(res => {
-        if(res)
-        setList(res.data)
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos")
+      .then((res) => {
+        if (res) setList(res.data);
       })
-      .catch(err => {
-        console.log(err)
-      })
-  },[])  
-  
-  function handleChange(id) {
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const toggleList = (id) => {
     setList(
-        List.map(list,id => {
-            if(list.id === id) {
-                list={...list, completed: true};        
-            }
-        return list
-        })
-        )
-  }
-  
-  return(
+      List.map((list, id) => {
+        if (list.id === id) {
+          list = { ...list, completed: true };
+        }
+        return list;
+      })
+    );
+  };
+
+  return (
     <div>
-      <ul>
-        {
-          List.filter(list => list.completed === 'true')
-            .map(list => (
-              <li key={list.id}>{list.title}</li>
-            ))            
-        }
-      </ul>
-      <ul>
-        {
-          List.filter(list => list.completed === 'false')
-            .map(list => (
-              <li onClick={handleChange(list.id)} key={list.id}>{list.title}</li>
-            ))            
-        }
-      </ul>
+      <h1>Completed</h1>
+      <ol>
+        {List.filter((list) => list.completed === true).map((list) => (
+          <li key={list.id}>{list.title}</li>
+        ))}
+      </ol>
+      <h1>Uncompleted</h1>
+      <ol>
+        {List.filter((list) => list.completed === false).map((list) => (
+          <li key={list.id}>
+            {list.title}
+            <button onClick={toggleList}>Toggle</button>
+          </li>
+        ))}
+      </ol>
     </div>
-  )
+  );
 }
+
+export default TodoList;
+
