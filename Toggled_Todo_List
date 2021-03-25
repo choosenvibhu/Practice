@@ -25,7 +25,7 @@ function TodoList() {
 
   const toggleList = (id) => {
     setList(
-      List.map((list, id) => {
+      List.map((list) => {
         if (list.id === id) {
           list = { ...list, completed: true };
         }
@@ -47,7 +47,7 @@ function TodoList() {
         {List.filter((list) => list.completed === false).map((list) => (
           <li key={list.id}>
             {list.title}
-            <button onClick={toggleList}>Toggle</button>
+            <button onClick={() => toggleList(list.id)}>Mark Complete</button>
           </li>
         ))}
       </ol>
@@ -56,4 +56,3 @@ function TodoList() {
 }
 
 export default TodoList;
-
